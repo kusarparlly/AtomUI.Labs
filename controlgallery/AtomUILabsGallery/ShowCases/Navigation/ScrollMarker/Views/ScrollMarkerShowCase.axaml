@@ -1,0 +1,214 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:atom="https://atomui.net"
+             xmlns:gallery="https://atomui.net/oss-controls/gallery"
+             xmlns:atom.labs="https://atomui.net/labs"
+             xmlns:scrollMarker="using:AtomUILabsGallery.ShowCases.ScrollMarker"
+             x:Class="AtomUILabsGallery.ShowCases.ScrollMarker.ScrollMarkerShowCase"
+             x:DataType="scrollMarker:ScrollMarkerViewModel">
+    <Grid Background="{atom:SharedTokenResource ColorBgLayout}">
+        <gallery:GalleryStickyTabsHost x:Name="RootGalleryHost">
+            <gallery:GalleryStickyTabsHost.Header>
+                <gallery:GalleryShowCaseHeader Title="Scroll Marker"
+                                               Category="Navigation"
+                                               Status="Experimental"
+                                               Subtitle="Viewport-following navigation for long, sectioned content."
+                                               Description="Direct Content supports authored visual sections; Virtual Items projects stable marker metadata while realizing only viewport-adjacent content containers."
+                                               Namespace="AtomUI.Labs.Controls.ScrollMarker"
+                                               Package="AtomUI.Labs.Controls.ScrollMarker"
+                                               BaseClass="ContentControl / ItemsControl" />
+            </gallery:GalleryStickyTabsHost.Header>
+
+            <gallery:ShowCasePanel ContentMargin="28,10,28,28"
+                                   IsScrollEnabled="False"
+                                   MaxColumns="1">
+                <gallery:ShowCaseItem Title="Direct content"
+                                      Description="Click a marker or scroll the content. The active marker follows section geometry; equal-coordinate sections use stable content order.">
+                    <Border Height="420"
+                            BorderBrush="{atom:SharedTokenResource ColorBorder}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            ClipToBounds="True">
+                        <atom.labs:ScrollMarkerView NavigatorPlacement="Start"
+                                                    NavigatorDisplayMode="Inline"
+                                                    NavigatorSpacing="8"
+                                                    NavigatorBorderThickness="0">
+                            <StackPanel Spacing="12" Margin="16">
+                                <atom.labs:ScrollMarkerSection AnchorKey="question-1" Label="Question 1">
+                                    <Border Padding="18" CornerRadius="8" Background="{atom:SharedTokenResource ColorBgContainer}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="Question 1" />
+                                            <TextBlock TextWrapping="Wrap" Text="How does Direct Content discover and navigate authored sections?" />
+                                        </StackPanel>
+                                    </Border>
+                                </atom.labs:ScrollMarkerSection>
+                                <atom.labs:ScrollMarkerSection AnchorKey="answer-1" Label="Answer 1">
+                                    <Border Padding="18" CornerRadius="8" Background="{atom:SharedTokenResource ColorBgContainer}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="Answer 1" />
+                                            <TextBlock TextWrapping="Wrap" Text="Each ScrollMarkerSection keeps a stable AnchorKey. The host reads its arranged visual coordinate and aligns the section start to the viewport anchor." />
+                                            <TextBlock TextWrapping="Wrap" Text="The section remains ordinary Avalonia content: Grid, Border, StackPanel and nested content continue to own business layout." />
+                                            <TextBlock TextWrapping="Wrap" Text="When the section attaches, the Direct host validates its identity and registers it without asking the business content to implement a navigation-specific interface." />
+                                            <TextBlock TextWrapping="Wrap" Text="The marker track preserves stable section order. It does not distribute markers according to the number of text lines or the pixel distance between section starts." />
+                                            <TextBlock TextWrapping="Wrap" Text="Clicking this marker requests the section's layout start, subtracts the effective AnchorOffset, clamps the value to the main scroll range and applies the final offset immediately." />
+                                            <TextBlock TextWrapping="Wrap" Text="While the user scrolls normally, the active section is calculated from the anchor line. A small hysteresis region prevents sub-pixel movement from rapidly toggling adjacent markers." />
+                                            <TextBlock TextWrapping="Wrap" Text="Render transforms may change how content is painted, but navigation continues to use layout coordinates so temporary animation does not corrupt marker order or target offsets." />
+                                            <TextBlock TextWrapping="Wrap" Text="Direct content remains developer-owned and fully materialized. The navigator may virtualize marker containers, but it never recycles or rebinds this authored section." />
+                                            <TextBlock TextWrapping="Wrap" Text="Manual check: click a distant marker, immediately click Answer 1 again, then resize the window. The latest request should win and the section should be located from the new layout." />
+                                        </StackPanel>
+                                    </Border>
+                                </atom.labs:ScrollMarkerSection>
+                                <atom.labs:ScrollMarkerSection AnchorKey="question-2" Label="Question 2">
+                                    <Border Padding="18" CornerRadius="8" Background="{atom:SharedTokenResource ColorBgContainer}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="Question 2" />
+                                            <TextBlock TextWrapping="Wrap" Text="What happens when the content becomes data-driven and very large?" />
+                                        </StackPanel>
+                                    </Border>
+                                </atom.labs:ScrollMarkerSection>
+                                <atom.labs:ScrollMarkerSection AnchorKey="answer-2" Label="Answer 2">
+                                    <Border Padding="18" CornerRadius="8" Background="{atom:SharedTokenResource ColorBgContainer}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="Answer 2" />
+                                            <TextBlock TextWrapping="Wrap" Text="Switch to ScrollMarkerItemsView. It retains lightweight descriptors for navigation but delegates visual creation and recycling to a dedicated VirtualizingStackPanel." />
+                                            <TextBlock TextWrapping="Wrap" Text="The first release accepts a fixed initial data set plus contiguous additions at logical End. Unsupported mutations enter a terminal Faulted state instead of silently corrupting index identity." />
+                                            <TextBlock TextWrapping="Wrap" Text="Each Virtual data item represents one semantic navigation unit. The item template can contain a question and answer, a single document block, or any other application-defined content." />
+                                            <TextBlock TextWrapping="Wrap" Text="Metadata bindings project the stable AnchorKey, optional Label and optional MarkerTheme once when the item enters the logical sequence. The descriptor does not retain the full business object." />
+                                            <TextBlock TextWrapping="Wrap" Text="Content containers and marker containers use independent viewports and independent recycling lifecycles. Neither realized count should grow in proportion to the complete data source." />
+                                            <TextBlock TextWrapping="Wrap" Text="A far marker activation first asks Avalonia to realize the target item, then verifies its actual arranged coordinate and performs a bounded exact-alignment correction." />
+                                            <TextBlock TextWrapping="Wrap" Text="Automatic end following respects history browsing. Appending data while the user is reading earlier content must not pull the viewport back to the newest item." />
+                                            <TextBlock TextWrapping="Wrap" Text="Manual check: compare this Direct example with the five-hundred-item Virtual example below and observe that both expose the same marker interaction even though content ownership differs." />
+                                            <TextBlock TextWrapping="Wrap" Text="The separate host types keep these lifecycle contracts explicit: ScrollMarkerView owns arbitrary direct content, while ScrollMarkerItemsView owns an append-only data-driven sequence." />
+                                        </StackPanel>
+                                    </Border>
+                                </atom.labs:ScrollMarkerSection>
+                            </StackPanel>
+                        </atom.labs:ScrollMarkerView>
+                    </Border>
+                </gallery:ShowCaseItem>
+
+                <gallery:ShowCaseItem Title="Direct content — 30 sections"
+                                      Description="All 30 content sections remain materialized in Direct mode. At most six markers are visible; the endpoint buttons navigate to the previous or next active marker and move the content viewport.">
+                    <Border Height="520"
+                            BorderBrush="{atom:SharedTokenResource ColorBorder}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            ClipToBounds="True">
+                        <atom.labs:ScrollMarkerView NavigatorPlacement="Start"
+                                                    NavigatorDisplayMode="Inline"
+                                                    NavigatorSpacing="8"
+                                                    NavigatorBorderThickness="0"
+                                                    MaxVisibleMarkerCount="6">
+                            <ItemsControl ItemsSource="{CompiledBinding DirectSections}"
+                                          Margin="8">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="scrollMarker:ScrollMarkerDemoSection">
+                                        <atom.labs:ScrollMarkerSection
+                                            AnchorKey="{CompiledBinding AnchorKey}"
+                                            Label="{CompiledBinding Label}">
+                                            <Border Margin="8"
+                                                    Padding="18"
+                                                    CornerRadius="8"
+                                                    Background="{atom:SharedTokenResource ColorBgContainer}">
+                                                <StackPanel Spacing="8">
+                                                    <TextBlock FontWeight="SemiBold"
+                                                               Text="{CompiledBinding Label}" />
+                                                    <TextBlock TextWrapping="Wrap"
+                                                               Text="{CompiledBinding Content}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </atom.labs:ScrollMarkerSection>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </atom.labs:ScrollMarkerView>
+                    </Border>
+                </gallery:ShowCaseItem>
+
+                <gallery:ShowCaseItem Title="Direct content — horizontal"
+                                      Description="Direct Content also supports a horizontal main axis. Click a marker, use the endpoint arrows or scroll the cards horizontally; the active marker follows the card aligned to the viewport start.">
+                    <Border Height="360"
+                            BorderBrush="{atom:SharedTokenResource ColorBorder}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            ClipToBounds="True">
+                        <atom.labs:ScrollMarkerView Orientation="Horizontal"
+                                                    NavigatorPlacement="End"
+                                                    NavigatorDisplayMode="Inline"
+                                                    NavigatorSpacing="8"
+                                                    NavigatorBorderThickness="0"
+                                                    MaxVisibleMarkerCount="6">
+                            <ItemsControl ItemsSource="{CompiledBinding HorizontalSections}"
+                                          Margin="8">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="scrollMarker:ScrollMarkerDemoSection">
+                                        <atom.labs:ScrollMarkerSection
+                                            AnchorKey="{CompiledBinding AnchorKey}"
+                                            Label="{CompiledBinding Label}"
+                                            Width="300"
+                                            Height="270">
+                                            <Border Margin="8"
+                                                    Padding="18"
+                                                    CornerRadius="8"
+                                                    Background="{atom:SharedTokenResource ColorBgContainer}">
+                                                <StackPanel Spacing="10">
+                                                    <TextBlock FontWeight="SemiBold"
+                                                               FontSize="16"
+                                                               Text="{CompiledBinding Label}" />
+                                                    <TextBlock TextWrapping="Wrap"
+                                                               Text="{CompiledBinding Content}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </atom.labs:ScrollMarkerSection>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </atom.labs:ScrollMarkerView>
+                    </Border>
+                </gallery:ShowCaseItem>
+
+                <gallery:ShowCaseItem Title="Virtual items — 500 sections"
+                                      Description="Only data descriptors are complete. The shared navigator shows at most six markers; its endpoint buttons navigate to the adjacent active item through the same virtualized content pipeline.">
+                    <Border Height="520"
+                            BorderBrush="{atom:SharedTokenResource ColorBorder}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            ClipToBounds="True">
+                        <atom.labs:ScrollMarkerItemsView
+                            ItemsSource="{CompiledBinding VirtualSections}"
+                            AnchorKeyBinding="{CompiledBinding AnchorKey}"
+                            LabelBinding="{CompiledBinding Label}"
+                            NavigatorPlacement="End"
+                            NavigatorBorderThickness="0"
+                            MaxVisibleMarkerCount="6"
+                            ContentEndFollowMode="Automatic">
+                            <atom.labs:ScrollMarkerItemsView.ItemTemplate>
+                                <DataTemplate x:DataType="scrollMarker:ScrollMarkerDemoSection">
+                                    <Border Margin="16,8"
+                                            Padding="18"
+                                            CornerRadius="8"
+                                            Background="{atom:SharedTokenResource ColorBgContainer}">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock FontWeight="SemiBold" Text="{CompiledBinding Label}" />
+                                            <TextBlock TextWrapping="Wrap" Text="{CompiledBinding Content}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </atom.labs:ScrollMarkerItemsView.ItemTemplate>
+                        </atom.labs:ScrollMarkerItemsView>
+                    </Border>
+                </gallery:ShowCaseItem>
+            </gallery:ShowCasePanel>
+        </gallery:GalleryStickyTabsHost>
+    </Grid>
+</UserControl>

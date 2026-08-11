@@ -1,0 +1,166 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:atom="https://atomui.net"
+                    xmlns:scrollMarker="clr-namespace:AtomUI.Labs.Controls.ScrollMarker"
+                    x:ClassModifier="internal">
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerItem}"
+                  TargetType="scrollMarker:ScrollMarkerItem">
+        <Setter Property="MarkerSize" Value="8" />
+        <Setter Property="Background" Value="{atom:SharedTokenResource ColorFillTertiary}" />
+        <Setter Property="BorderBrush" Value="{atom:SharedTokenResource ColorBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="ToolTip.ServiceEnabled" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerItem">
+                <Grid Background="Transparent"
+                      MinWidth="24"
+                      MinHeight="24">
+                    <Border Name="PART_Marker"
+                            Width="{TemplateBinding MarkerSize}"
+                            Height="{TemplateBinding MarkerSize}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{atom:SharedTokenResource ColorPrimary}" />
+        </Style>
+        <Style Selector="^:selected">
+            <Setter Property="Background" Value="{atom:SharedTokenResource ColorPrimary}" />
+            <Setter Property="BorderBrush" Value="{atom:SharedTokenResource ColorPrimary}" />
+        </Style>
+        <Style Selector="^:pressed /template/ Border#PART_Marker">
+            <Setter Property="Opacity" Value="0.72" />
+        </Style>
+        <Style Selector="^:focus-visible /template/ Border#PART_Marker">
+            <Setter Property="BorderBrush" Value="{atom:SharedTokenResource ColorPrimary}" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style Selector="^[Shape=Circle] /template/ Border#PART_Marker">
+            <Setter Property="CornerRadius" Value="999" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerSection}"
+                  TargetType="scrollMarker:ScrollMarkerSection">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerSection">
+                <ContentPresenter Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerSectionContainer}"
+                  TargetType="scrollMarker:ScrollMarkerSectionContainer">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerSectionContainer">
+                <ContentPresenter Content="{TemplateBinding Content}"
+                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerNavigator}"
+                  TargetType="scrollMarker:ScrollMarkerNavigator">
+        <Setter Property="MinWidth" Value="34" />
+        <Setter Property="MinHeight" Value="34" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerNavigator">
+                <Border Name="PART_NavigatorRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Padding="{TemplateBinding Padding}">
+                    <scrollMarker:ScrollMarkerNavigatorPanel Name="PART_NavigatorLayout">
+                        <atom:Button Name="PART_PreviousMarkerButton"
+                                     ButtonType="Text"
+                                     Width="24"
+                                     Height="24"
+                                     MinWidth="24"
+                                     MinHeight="24"
+                                     Padding="0"
+                                     ToolTip.ServiceEnabled="False"
+                                     IsVisible="False" />
+                        <atom:ScrollViewer Name="PART_NavigatorScrollViewer"
+                                           HorizontalScrollBarVisibility="Hidden"
+                                           VerticalScrollBarVisibility="Hidden"
+                                           BringIntoViewOnFocusChange="False"
+                                           IsScrollChainingEnabled="False">
+                            <ItemsPresenter Name="PART_ItemsPresenter"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        </atom:ScrollViewer>
+                        <atom:Button Name="PART_NextMarkerButton"
+                                     ButtonType="Text"
+                                     Width="24"
+                                     Height="24"
+                                     MinWidth="24"
+                                     MinHeight="24"
+                                     Padding="0"
+                                     ToolTip.ServiceEnabled="False"
+                                     IsVisible="False" />
+                    </scrollMarker:ScrollMarkerNavigatorPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerView}"
+                  TargetType="scrollMarker:ScrollMarkerView">
+        <Setter Property="NavigatorBackground" Value="{atom:SharedTokenResource ColorBgContainer}" />
+        <Setter Property="NavigatorBorderBrush" Value="{atom:SharedTokenResource ColorBorder}" />
+        <Setter Property="NavigatorBorderThickness" Value="1" />
+        <Setter Property="NavigatorCornerRadius" Value="{atom:SharedTokenResource BorderRadiusLG}" />
+        <Setter Property="NavigatorPadding" Value="4" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerView">
+                <scrollMarker:ScrollMarkerViewPanel ClipToBounds="True">
+                    <atom:ScrollViewer Name="PART_ContentScrollViewer">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </atom:ScrollViewer>
+                    <scrollMarker:ScrollMarkerNavigator Name="PART_Navigator" />
+                </scrollMarker:ScrollMarkerViewPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type scrollMarker:ScrollMarkerItemsView}"
+                  TargetType="scrollMarker:ScrollMarkerItemsView">
+        <Setter Property="NavigatorBackground" Value="{atom:SharedTokenResource ColorBgContainer}" />
+        <Setter Property="NavigatorBorderBrush" Value="{atom:SharedTokenResource ColorBorder}" />
+        <Setter Property="NavigatorBorderThickness" Value="1" />
+        <Setter Property="NavigatorCornerRadius" Value="{atom:SharedTokenResource BorderRadiusLG}" />
+        <Setter Property="NavigatorPadding" Value="4" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="scrollMarker:ScrollMarkerItemsView">
+                <scrollMarker:ScrollMarkerViewPanel ClipToBounds="True">
+                    <atom:ScrollViewer Name="PART_ContentScrollViewer">
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                    </atom:ScrollViewer>
+                    <scrollMarker:ScrollMarkerNavigator Name="PART_Navigator" />
+                </scrollMarker:ScrollMarkerViewPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
