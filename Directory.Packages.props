@@ -6,6 +6,7 @@
     <ItemGroup>
         <PackageVersion Include="AtomUI.Core" Version="$(AtomUIVersion)"/>
         <PackageVersion Include="AtomUI.Desktop.Controls" Version="$(AtomUIVersion)"/>
+        <PackageVersion Include="AtomUI.Icons.AntDesign" Version="$(AtomUIVersion)"/>
         <PackageVersion Include="AtomUI.Toolkits.GalleryBase" Version="$(AtomUIVersion)"/>
         <PackageVersion Include="AtomUI.Generator" Version="$(AtomUIVersion)"/>
 

@@ -1,6 +1,8 @@
 <Solution>
   <Project Path="src/AtomUI.Labs.Controls.Led/AtomUI.Labs.Controls.Led.csproj" />
+  <Project Path="src/AtomUI.Labs.Controls.ScrollMarker/AtomUI.Labs.Controls.ScrollMarker.csproj" />
   <Project Path="tests/AtomUI.Labs.Controls.Led.Tests/AtomUI.Labs.Controls.Led.Tests.csproj" />
+  <Project Path="tests/AtomUI.Labs.Controls.ScrollMarker.Tests/AtomUI.Labs.Controls.ScrollMarker.Tests.csproj" />
   <Project Path="controlgallery/AtomUILabsGallery/AtomUILabsGallery.csproj" />
   <Project Path="controlgallery/AtomUILabsGallery.Desktop/AtomUILabsGallery.Desktop.csproj" />
 </Solution>
