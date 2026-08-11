@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>$(AtomUITargetFrameworks)</TargetFrameworks>
+        <RootNamespace>AtomUI.Labs.Controls.ScrollMarker</RootNamespace>
+        <Title>AtomUI Labs ScrollMarker Controls</Title>
+        <Description>Experimental scroll-marker navigation controls for AtomUI applications.</Description>
+        <PackageTags>avalonia;AtomUI;Labs;ScrollMarker;Navigation;Virtualization;Desktop;Experimental</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="$(MSBuildThisFileDirectory)../../README.nuget.md" />
+        <None Include="README.nuget.md" Pack="true" PackagePath="/" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="AtomUI.Labs.Controls.ScrollMarker.Tests" />
+        <InternalsVisibleTo Include="AtomUI.Labs.Controls.ScrollMarker.Performance" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" />
+        <PackageReference Include="AtomUI.Core" />
+        <PackageReference Include="AtomUI.Desktop.Controls" />
+        <PackageReference Include="AtomUI.Icons.AntDesign" />
+    </ItemGroup>
+</Project>
