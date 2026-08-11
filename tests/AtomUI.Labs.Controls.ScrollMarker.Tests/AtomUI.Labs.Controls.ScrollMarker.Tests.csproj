@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>$(AtomUIDevelopTargetFramework)</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <RootNamespace>AtomUI.Labs.Controls.ScrollMarker.Tests</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Headless" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="Shouldly" />
+        <PackageReference Include="xunit.v3" />
+        <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../../src/AtomUI.Labs.Controls.ScrollMarker/AtomUI.Labs.Controls.ScrollMarker.csproj" />
+    </ItemGroup>
+</Project>
